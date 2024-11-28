@@ -53,7 +53,7 @@ struct SWIOState
 	uint32_t autoincrement;
 };
 
-#if  defined(CONFIG_IDF_TARGET_ESP32)
+#if defined(CONFIG_IDF_TARGET_ESP32) || defined(CONFIG_IDF_TARGET_ESP32S3)
 #define GPIO_IN GPIO.in
 #define GPIO_SET GPIO.out_w1ts
 #define GPIO_CLEAR GPIO.out_w1tc
@@ -65,6 +65,8 @@ struct SWIOState
 #define GPIO_CLEAR GPIO.out_w1tc.val
 #define GPIO_ENABLE_SET GPIO.enable_w1ts.val
 #define GPIO_ENABLE_CLEAR GPIO.enable_w1tc.val
+#else
+#error "Unsupported target. Please define GPIO macros for your target."
 #endif
 
 #define STTAG( x ) (*((uint32_t*)(x)))
